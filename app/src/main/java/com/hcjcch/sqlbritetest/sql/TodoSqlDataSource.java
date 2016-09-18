@@ -36,6 +36,7 @@ public class TodoSqlDataSource {
         return briteDatabase.createQuery(TABLE_NAME, QUERY_ALL_TODO_ITEM).mapToList(TodoItem.MAPPER);
     }
 
+    //插入一条TODO
     public void insertTodoItem(TodoItem todoItem) {
         ContentValues values =
             new TodoItem
@@ -45,6 +46,7 @@ public class TodoSqlDataSource {
         briteDatabase.insert(TABLE_NAME, values);
     }
 
+    //插入很多TODOS
     public void insertTodoItems(List<TodoItem> todoItemList) {
         BriteDatabase.Transaction transaction = briteDatabase.newTransaction();
         try {
@@ -57,7 +59,13 @@ public class TodoSqlDataSource {
         }
     }
 
+    //根据ID删除TODO
     public void deleteTodoItemById(int id) {
         briteDatabase.delete(TABLE_NAME, TodoItem._ID + "=?", id + "");
+    }
+
+    //删除所有TODO
+    public void deleteAllTodoItems() {
+        briteDatabase.delete(TABLE_NAME, null);
     }
 }
